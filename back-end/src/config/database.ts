@@ -1,8 +1,34 @@
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize(process.env.DB_NAME || 'test', process.env.DB_USER || 'root', process.env.DB_PASSWORD || '', {
-  host: process.env.DB_HOST || 'localhost',
-  dialect: 'postgres',
-});
+class Database {
+  private static instance: Sequelize;
 
-export default sequelize;
+  private constructor() {}
+
+  public static getInstance(): Sequelize {
+    if (!Database.instance) {
+      Database.instance = new Sequelize(
+        process.env.DB_NAME || 'postgres',
+        process.env.DB_USER || 'postgres',
+        process.env.DB_PASSWORD || '',
+        {
+          host: process.env.DB_HOST || 'localhost',
+          port: Number(process.env.DB_PORT) || 5432,
+          dialect: 'postgres',
+          logging: false,
+        }
+      );
+    }
+    return Database.instance;
+  }
+  public static async testConnection(): Promise<void> {
+    try {
+      const sequelize = this.getInstance();
+      await sequelize.authenticate(); // Método de Sequelize para probar la conexión
+      console.log('¡Conexión exitosa con la base de datos!');
+    } catch (error) {
+      console.error('Error al conectar con la base de datos:', error);
+    }
+  }
+}
+export default Database;
