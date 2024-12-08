@@ -1,0 +1,34 @@
+# Ignorar node_modules en todas las carpetas
+**/node_modules/
+
+# Ignorar logs
+**/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignorar directorios de build o dist en cualquier nivel
+**/dist/
+**/build/
+
+# Ignorar archivos de entorno en cualquier carpeta
+**/.env
+**/.env.local
+**/.env.development
+**/.env.production
+
+# Ignorar directorios de editor
+**/.vscode/
+**/.idea/
+
+# Ignorar archivos generados por el sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar directorios de cobertura de tests
+**/coverage/
+
+# Ignorar cualquier otro archivo no deseado generado
+*.swp
+*.swo
