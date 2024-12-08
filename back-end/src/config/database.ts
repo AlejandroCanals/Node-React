@@ -8,8 +8,8 @@ class Database {
   public static getInstance(): Sequelize {
     if (!Database.instance) {
       Database.instance = new Sequelize(
-        process.env.DB_NAME || 'postgres',
-        process.env.DB_USER || 'postgres',
+        process.env.DB_NAME || '',
+        process.env.DB_USER || '',
         process.env.DB_PASSWORD || '',
         {
           host: process.env.DB_HOST || 'localhost',
@@ -24,11 +24,13 @@ class Database {
   public static async testConnection(): Promise<void> {
     try {
       const sequelize = this.getInstance();
-      await sequelize.authenticate(); // Método de Sequelize para probar la conexión
+      await sequelize.authenticate();
       console.log('¡Conexión exitosa con la base de datos!');
     } catch (error) {
       console.error('Error al conectar con la base de datos:', error);
     }
   }
+
+
 }
 export default Database;
