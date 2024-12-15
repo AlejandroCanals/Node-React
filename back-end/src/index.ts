@@ -1,7 +1,6 @@
 import Database from './config/database';
 import * as dotenv from 'dotenv';
 dotenv.config();
-import User from './models/user.model'; // Importa los modelos después
 
 
 (async () => {
