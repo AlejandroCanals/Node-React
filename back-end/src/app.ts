@@ -1,12 +1,18 @@
 import express from 'express';
+import routes from './routes/index';
+import { errorHandler } from './middlewares/errorHandler';
+
 
 const app = express();
-
-// Middlewares globales
 app.use(express.json());
 
 // Rutas
-import routes from './routes/index';
 app.use('/api', routes);
+
+app.use((req, res) => {
+    res.status(404).json({ success: false, error: 'Ruta no encontrada' });
+  });
+
+app.use(errorHandler);
 
 export default app;

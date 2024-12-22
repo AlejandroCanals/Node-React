@@ -6,6 +6,7 @@ class User extends Model {
   public name!: string;
   public email!: string;
   public password!: string;
+  public role!: string;
 }
 
 const sequelize = Database.getInstance();
@@ -29,6 +30,11 @@ User.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'user',
     },
   },
   {
