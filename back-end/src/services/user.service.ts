@@ -2,15 +2,12 @@ import User from '../models/user.model';
 
 class UserService {
   public async createUser(data: { name: string; email: string; password: string }) {
-    const user = await User.create(data);
-    return user;
+    return await User.create(data);
   }
 
   public async getUserById(id: number) {
     const user = await User.findByPk(id);
-    if (!user) {
-      throw new Error('User not found');
-    }
+    if (!user) throw new Error('User not found');
     return user;
   }
 
@@ -21,6 +18,13 @@ class UserService {
   public async deleteUser(id: number) {
     const user = await this.getUserById(id);
     await user.destroy();
+  }
+
+  public async updateUser(id: number, data: Partial<{ name: string; email: string; password: string }>) {
+    const user = await this.getUserById(id);
+    Object.assign(user, data);
+    await user.save();
+    return user;
   }
 }
 
